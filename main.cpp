@@ -13,10 +13,12 @@ std::vector<cpath::path> MainDirectory;
 std::vector<std::vector<cpath::path>> Dirs;
 
 void Search(std::vector<cpath::path> &PathVec){
-    
+  
     for(int i = 0; i < PathVec.size(); i++){
-    cpath::recursive_directory_iterator it(PathVec[i]);
+    cpath::recursive_directory_iterator it(PathVec[i],
+					cpath::directory_options::skip_permission_denied);
     for(const cpath::directory_entry &dir : it){
+		std::cout << dir.path() << std::endl;
         if(success == true) return;
         if(dir.path().filename() == Goal){
             std::cout << dir.path() << std::endl;
